@@ -31,8 +31,8 @@ public class UserService {
 
     public UserDto getUser(Long userId) throws Exception {
 
-        UserEntity userEntity = userRepository.getById(userId);
-        //UserEntity userEntity = (userRepository.getById(userId).getIsDeleted()) ? null : userRepository.getById(userId);
+        //UserEntity userEntity = userRepository.getById(userId);
+        UserEntity userEntity = (userRepository.getById(userId).getIsDeleted()) ? null : userRepository.getById(userId);
 
         if (userEntity == null) {
             throw new Exception();
@@ -41,13 +41,9 @@ public class UserService {
         return new UserDto(userEntity);
     }
 
-    /*public void updateUser(Long userId, UserDto userDto) throws Exception {
+    public void updateUser(Long userId, UserDto userDto) throws Exception {
 
-        if (userId > id) {
-            throw new Exception();
-        }
-
-        UserEntity userEntity = users.get(userId);
+        UserEntity userEntity = userRepository.getById(userId);
 
         if (!StringUtils.hasText(userDto.getFirstName())
             || !StringUtils.hasText(userDto.getLastName())) {
@@ -56,15 +52,13 @@ public class UserService {
 
         userEntity.setFirstName(userDto.getFirstName());
         userEntity.setLastName(userDto.getLastName());
+        userRepository.save(userEntity);
     }
 
-    public void deleteUser(Long userId) throws Exception {
+    public void deleteUser(Long userId) {
 
-        if (userId > id) {
-            throw new Exception();
-        }
-
-        UserEntity userEntity = users.get(userId);
+        UserEntity userEntity = userRepository.getById(userId);
         userEntity.setIsDeleted(true);
-    }*/
+        userRepository.save(userEntity);
+    }
 }

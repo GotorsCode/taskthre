@@ -24,7 +24,7 @@ public class UserController {
         return userService.getUser(id);
     }
 
-   /* @PutMapping("/user/{id}")
+    @PutMapping("/user/{id}")
     public ResponseEntity<?> updateUser(@PathVariable("id") Long id, @RequestBody UserDto userDto) throws Exception {
 
         userService.updateUser(id, userDto);
@@ -33,7 +33,7 @@ public class UserController {
     }
 
     @DeleteMapping("/user/{id}")
-    public void deleteUser(@PathVariable(value = "id") Long id) throws Exception {
+    public void deleteUser(@PathVariable(value = "id") Long id) {
         userService.deleteUser(id);
-    }*/
+    }
 }
