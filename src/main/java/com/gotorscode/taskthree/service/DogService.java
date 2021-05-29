@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 
 public class DogService {
@@ -47,6 +50,23 @@ public class DogService {
         dogDto.setOwnerId(dogEntity.getOwner().getId());
 
         return dogDto;
+    }
+
+    public List<DogDto> getAllDog() {
+
+        List<DogDto> dogs = new ArrayList<>();
+        for (long i = 1; i <= dogRepository.count(); i++) {
+
+            DogDto dogDto = new DogDto();
+
+            if (!dogRepository.getById(i).getIsDeleted()) {
+                dogDto.setNickname(dogRepository.getById(i).getNickname());
+                dogDto.setOwnerId(dogRepository.getById(i).getOwner().getId());
+                dogs.add(dogDto);
+            }
+        }
+
+        return dogs;
     }
 
     public void updateDog(Long dogId, DogDto dogDto) throws Exception {

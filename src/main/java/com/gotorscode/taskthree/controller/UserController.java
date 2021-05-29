@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class UserController {
 
@@ -22,6 +24,18 @@ public class UserController {
     public UserDto getUser(@PathVariable(name = "id") Long id) throws  Exception {
 
         return userService.getUser(id);
+    }
+
+    @GetMapping("/user/all")
+    public List<UserDto> getAllUsers() {
+
+        return userService.getAllUser();
+    }
+
+    @GetMapping("/user/{id}/dogs")
+    public List<String> getAllDogsForUser(@PathVariable("id") Long userId) {
+
+        return userService.getAllDogsForUser(userId);
     }
 
     @PutMapping("/user/{id}")
