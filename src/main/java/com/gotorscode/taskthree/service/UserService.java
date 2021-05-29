@@ -7,9 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @Service
 public class UserService {
 
@@ -31,7 +28,6 @@ public class UserService {
 
     public UserDto getUser(Long userId) throws Exception {
 
-        //UserEntity userEntity = userRepository.getById(userId);
         UserEntity userEntity = (userRepository.getById(userId).getIsDeleted()) ? null : userRepository.getById(userId);
 
         if (userEntity == null) {
@@ -40,6 +36,18 @@ public class UserService {
 
         return new UserDto(userEntity);
     }
+
+    /*public UserDto getAllUser(Long userId) throws Exception {
+
+        //UserEntity userEntity = userRepository.getById(userId);
+        UserEntity userEntity = (userRepository.getById(userId).getIsDeleted()) ? null : userRepository.getById(userId);
+
+        if (userEntity == null) {
+            throw new Exception();
+        }
+
+        return new UserDto(userEntity);
+    }*/
 
     public void updateUser(Long userId, UserDto userDto) throws Exception {
 
